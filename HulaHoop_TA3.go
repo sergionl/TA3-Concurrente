@@ -15,6 +15,32 @@ type Player struct {
 	continuar    bool //si sigue avanzando o no
 	equipo       int  //A cuál equipo pertenece: 1 o 2
 	id           int  //ID del jugador
+	meta		 bool //Si llegó a la meta o no
+}
+
+func NextPlayer(e int, _player [Player], n int) {
+	cont := 0
+	for {
+
+		if (_player[e].equipo == 1) {
+			e++
+			if (e == (n / 2)) {e = 0} //Validar que se mantenga con los IDs del equipo 1
+		}
+
+		else {
+			e--
+			if (e == (n / 2) - 1) {e = n -1} //Validar que se mantenga con los IDs del equipo 2
+		}
+
+		if (_player[e].meta == false || cont == n / 2) {
+			e = -1
+			break
+		}
+
+		cont++
+	}
+
+	return e
 }
 
 func match(jugador1 int, jugador2 int, duel_winner) {
@@ -86,7 +112,7 @@ func Controller(n_players int, players []Player) {
 	
 	//Crear los jugadores y asignarlos a su equipo correspondiente
 	for i := 0; i < n; i++ {
-		//players[i].continuar = true //setear continuar a true
+		players[i].meta = false //setear que aún no llegan a la meta
 		players[i].id := i //Asignar el id
 
 		//Asignar equipos y posiciones
@@ -117,6 +143,7 @@ func Controller(n_players int, players []Player) {
 	id := 0
 	e1 = 0
 	e2 = n - 1
+	match_end := false
 
 	fmt.Println("Empieza la partida")
 	fmt.Println("El jugador %s del equipo %s comienza a avanzar", e1, players[e1].equipo)
@@ -133,9 +160,35 @@ func Controller(n_players int, players []Player) {
 			equipo1[e1] = false //El jugador actual ya no avanza
 			players[e1].continuar = false //Decir que ya no puede seguir avanzando
 			players[e1].pos = players[e1].pos_inicial //Hacer que regrese al inicio
-			e1++ //Obtener el siguiente jugador
-			if (e1 == (n / 2)) {e1 = 0} //Validar que se mantenga con los IDs del equipo 1
+			//e1++ //Obtener el siguiente jugador
+			//if (e1 == (n / 2)) {e1 = 0} //Validar que se mantenga con los IDs del equipo 1
+			e1 = NextPlayer(e1, players, n)
 			players[e1].continuar = true //El siguiente jugador puede salir
+
+			if (players[id].pos == players[id].pos_objetivo) {
+				fmt.Println("El jugador %s del equipo %s llegó a la meta", id, players[id].equipo)
+				players[id].meta = true //Indicar que el jugador llegó a la meta
+				equipo2[id] = false //Indicar que para de avanzar
+				e2 = NextPlayer(e2, players, n)
+
+				if (e2 == -1) {
+					fmt.Println("El equipo 2 ganó")
+					match_end = true
+				}
+				
+				/*for {
+					e2--
+
+					if (players[e2].meta == false && e2 >= n / 2) {break}
+
+					if (e2 < n / 2) {
+						fmt.Println("El equipo 2 ganó")
+						match_end = true
+						break
+					}
+				}*/
+
+			}
 		}
 
 		else {
@@ -143,10 +196,13 @@ func Controller(n_players int, players []Player) {
 			equipo2[e2] = false //El jugador actual ya no avanza
 			players[e2].continuar = false //Decir que ya no puede seguir avanzando
 			players[e2].pos = players[e2].pos_inicial //Hacer que regrese al inicio
-			e2-- //Obtener el siguiente jugador
-			if (e2 == (n / 2) - 1) {e2 = n -1} //Validar que se mantenga con los IDs del equipo 2
+			//e2-- //Obtener el siguiente jugador
+			//if (e2 == (n / 2) - 1) {e2 = n -1} //Validar que se mantenga con los IDs del equipo 2
+			e2 = NextPlayer(e2, players, n)
 			players[e2].continuar = true //El siguiente jugador puede salir
 		}
+
+		if (match_end == true) {break} //terminó la partida
 	}
 
 }
