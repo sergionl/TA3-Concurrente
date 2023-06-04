@@ -1,12 +1,12 @@
 # Programación concurrente y programación distribuida
 
-Integrantes:
+**Integrantes:**
 
--Natalia Melissa Maury Castañeda
+- Natalia Melissa Maury Castañeda
 
--Sergio Antonio Nuñez Lazo
+- Sergio Antonio Nuñez Lazo
 
--Oscar Daniel Flores Palermo
+- Oscar Daniel Flores Palermo
 
 ## HulaHoopRelayRace
 Para la Tarea Académica (TA3), se realizó el juego de Hula Hoop Relay Race utilizando programación concurrente, canales y semáforos en el lenguaje de programación Go. El juego consiste en dos equipos que cruzarán un camino delimitado por hula hulas (Hula Hoop) y cuando dos jugadores se encuentran en la misma posición jugarán "piedra, papel o tijeras", el ganador del desafío continua y el perdedor regresar al inicio donde el siguiente compañero del equipo comienza a jugar. Esto se repetirá hasta que todos los jugadores de un equipo hayan llegado al otro extremo, es decir que crucen todo el camino de hula hulas. 
