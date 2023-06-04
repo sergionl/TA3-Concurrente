@@ -1,7 +1,11 @@
 Programacion concurrente y programacion distribuida
+
 Intengrantes:
+
 -Natalia Melissa Maury Castañeda
+
 -Sergio Antonio Nuñez Lazo
+
 -Oscar Daniel Flores Palermo
 
 HulaHoopRelayRace
