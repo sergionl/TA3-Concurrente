@@ -40,7 +40,7 @@ func duelo(n int, players []Player, current1 int, current2 int, player1_pos chan
 				}
 
 				current2 = cambiarE2(n, players, current2)
-				fmt.Printf("Ahora le tocara jugar a jugador %d\n por que el otro perdio aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n", current2)
+				fmt.Printf("Ahora le tocara jugar a jugador %d\n por que el otro perdio\n", current2)
 				return current2
 
 			} else { //gana jugador 2
@@ -53,7 +53,7 @@ func duelo(n int, players []Player, current1 int, current2 int, player1_pos chan
 					current1 = 0
 				}
 				current1 = cambiarE1(n, players, current1)
-				fmt.Printf("Ahora le tocara jugar a jugador %d\n por que el otro perdio aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n", current1)
+				fmt.Printf("Ahora le tocara jugar a jugador %d\n por que el otro perdio\n", current1)
 				return current1
 
 			}
@@ -71,7 +71,7 @@ func avanzarE1(players []Player, i int, player1_pos chan int, wg *sync.WaitGroup
 	players[i].pos += 1
 	player1_pos <- players[i].pos
 	if players[i].pos == players[1].pos_objetivo {
-		fmt.Printf("El jugador %d del equipo %d llego al final bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n", i, players[i].equipo)
+		fmt.Printf("El jugador %d del equipo %d llego al final\n", i, players[i].equipo)
 		players[i].meta = true
 		//player1_pos <- 1
 	}
@@ -83,7 +83,7 @@ func avanzarE2(players []Player, i int, player2_pos chan int, wg *sync.WaitGroup
 	players[i].pos -= 1
 	player2_pos <- players[i].pos
 	if players[i].pos == players[i].pos_objetivo {
-		fmt.Printf("El jugador %d del equipo %d llego al final bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\n", i, players[i].equipo)
+		fmt.Printf("El jugador %d del equipo %d llego al final\n", i, players[i].equipo)
 		players[i].meta = true
 		//player2_pos <- 20
 	}
@@ -266,11 +266,16 @@ func main() {
 			return
 		} else {
 			n = x
+
 		}
 	} else {
 		n = 10
 	}
 
+	if n%2 != 0{
+		fmt.Println("El número debe ser par")
+		return 
+	}
 	//n = 10 //Cantidad de jugadores
 	players := make([]Player, n)
 
